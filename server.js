@@ -16,7 +16,16 @@ app.post('/run-test', async (req, res) => {
   const actionsLog = [];
   
   try {
-    const browser = await chromium.launch();
+    const browser = await chromium.launch({
+      args: [
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--single-process',
+        '--no-first-run',
+        '--no-default-browser-check'
+      ]
+    });
+    
     const page = await browser.newPage();
     
     // Navigate
